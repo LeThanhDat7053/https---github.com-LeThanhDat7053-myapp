@@ -1,0 +1,29 @@
+<h1>Edit Product</h1>
+
+<%= form_with(model: @product, local: true) do |form| %>
+  <% if @product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+      <ul>
+        <% @product.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.submit "Update Product" %>
+  </div>
+  <div>
+    <%= form.label :price %>
+    <%= form.number_field :price, step: 1 %>
+  </div>
+<% end %>
+
+<%= link_to "Back", product_path(@product) %>

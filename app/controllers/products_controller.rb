@@ -1,4 +1,7 @@
 class ProductsController < ApplicationController
+  # Sử dụng before_action để set @product cho các action show, edit, update, destroy
+  before_action :set_product, only: %i[show edit update destroy]
+
   # Action cho GET /products
   def index
     @products = Product.all
@@ -21,17 +24,14 @@ class ProductsController < ApplicationController
 
   # Action cho GET /products/:id
   def show
-    @product = Product.find(params[:id])
   end
 
   # Action cho GET /products/:id/edit
   def edit
-    @product = Product.find(params[:id])
   end
 
   # Action cho PATCH/PUT /products/:id
   def update
-    @product = Product.find(params[:id])
     if @product.update(product_params)
       redirect_to @product # Chuyển hướng đến trang show của sản phẩm sau khi cập nhật
     else
@@ -41,7 +41,6 @@ class ProductsController < ApplicationController
 
   # Action cho DELETE /products/:id
   def destroy
-    @product = Product.find(params[:id])
     @product.destroy
     redirect_to products_path # Quay lại trang danh sách sản phẩm sau khi xóa
   end
@@ -51,5 +50,10 @@ class ProductsController < ApplicationController
   # Strong parameters cho tạo mới và cập nhật product
   def product_params
     params.require(:product).permit(:name, :price)
+  end
+
+  # Set product dùng cho show, edit, update, destroy
+  def set_product
+    @product = Product.find(params[:id])
   end
 end

@@ -16,6 +16,6 @@ Rails.application.routes.draw do
 
   # Định nghĩa các route cho các hành động CRUD của products
   resources :products  # Tự động tạo các route cho CRUD
-  
+
 
 end
